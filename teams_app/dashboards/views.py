@@ -7,8 +7,6 @@ from .models import Board, Column
 
 
 def dashboards(request):
-    print("User in dashboard request ", str(request.user))
-    print('You Called Dashboards!!!!!')
     user_starting_letter = str(request.user)[0].capitalize()
     all_boards = Board.objects.all()
     context = {'user_starting_letter':user_starting_letter, 'all_boards': all_boards}
@@ -16,8 +14,6 @@ def dashboards(request):
     return render(request, 'dashboards/dashboards.html', context)
 
 def create_board(request):
-
-    print("User in create board request ", str(request.user))
     user_starting_letter = str(request.user)[0].capitalize()
     if request.method == 'POST':
         print("I am in post!")
@@ -42,21 +38,18 @@ def create_board(request):
         })
 
 def sort_by_name(request):
-    print("I am in sort by name")
     all_boards = Board.objects.order_by('name')
     user_starting_letter = str(request.user)[0].capitalize()
     context = {'user_starting_letter': user_starting_letter, 'all_boards': all_boards}
     return render(request, 'dashboards/dashboards.html', context)
 
 def sort_by_date(request):
-    print("I am in sort by date")
     all_boards = Board.objects.order_by('create_date')
     user_starting_letter = str(request.user)[0].capitalize()
     context = {'user_starting_letter': user_starting_letter, 'all_boards': all_boards}
     return render(request, 'dashboards/dashboards.html', context)
 
 def search_board(request):
-    print("in search board")
     user_starting_letter = str(request.user)[0].capitalize()
     all_boards = Board.objects.all()
     try:
@@ -96,7 +89,6 @@ def create_column(request, board_pk):
 
 
 def create_task(request, board_pk, column_pk):
-    print("in create task")
     board = Board.objects.filter(pk = str(board_pk))[0]
     column = Column.objects.filter(pk=str(column_pk))[0]
     user_starting_letter = str(request.user)[0].capitalize()
@@ -114,7 +106,6 @@ def create_task(request, board_pk, column_pk):
         return render(request, 'dashboards/board.html', context)
 
 def delete_board(request, board_pk):
-    print("I am inside delete!")
     user_starting_letter = str(request.user)[0].capitalize()
     board = Board(pk = str(board_pk))
     board.delete()
