@@ -1,0 +1,82 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Welcome Page Teams Application</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <header>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
+          <a href="{% url 'users:welcome'%}"><img class="navbar-brand img-responsive" src= "{% static 'users/images/logo.jpg' %}" alt="" width="50" height="40"></a>
+          <h5 class="my-0 mr-md-auto p-2 text-dark"><a href="{% url 'users:welcome'%}">{{user_starting_letter}}</a></h5>
+          <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-center" href=""><span class="border border-primary rounded-circle p-3">{{user_starting_letter}}</span></a>
+            <a class="p-2 text-dark" href="{% url 'users:welcome'%}">Home</a>
+            <!--<a class="p-2 text-dark" href="#">Enterprise</a>-->
+            <!--<a class="p-2 text-dark" href="#">Support</a>-->
+            <!--<a class="p-2 text-dark" href="#">Pricing</a>-->
+          </nav>
+          <a class="btn btn-outline-primary ml-2" href="{% url 'dashboards:create_board'%}">Add Dashboard</a>
+          <a class="btn btn-outline-secondary ml-2" href="{% url 'dashboards:sort_by_name'%}">Sort by name</a>
+          <a class="btn btn-outline-secondary ml-2" href="{% url 'dashboards:sort_by_date'%}">Sort by creation date</a>
+          <form class="form-inline my-2 my-lg-0 ml-2" action="{% url 'dashboards:search_board'%}" method="post">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name = "board_name">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search board</button>
+          </form>
+        </div>
+    </header>
+
+    <main role="main">
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row">
+            {% for board in all_boards %}
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <!--<img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">-->
+                <div class="card-body">
+                  <p class="card-text">{{board.name}}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'dashboards:edit_board' board.pk %}"><a href="{% url 'dashboards:edit_board' board.pk %}">View/Edit</a></button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'dashboards:delete_board' board.pk %}"><a href="{% url 'dashboards:delete_board' board.pk %}">Delete</a></button>
+                    </div>
+                    <small class="text-muted">Created on {{board.create_date}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {%endfor%}
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>This project was created by Cristhian Murcia &copy; and corresponds to the final project proposed by <a>Globant</a></p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"><\/script>')</script>
+    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.min.js"></script>
+  </body>
+</html>

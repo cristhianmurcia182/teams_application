@@ -1,0 +1,57 @@
+{% load static %}
+
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Teams Cristhian Applicationp</title>
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   <!--<link rel="stylesheet" type="text/css" href="{% static 'users/signup.css' %}">-->
+  </head>
+
+  <body class="text-center">
+     <header>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
+          <a href="{% url 'users:welcome'%}"><img class="navbar-brand img-responsive" src= "{% static 'users/images/logo.jpg' %}" alt="" width="50" height="40"></a>
+          <h5 class="my-0 mr-md-auto p-2 text-dark"><a href="{% url 'users:welcome'%}">CM</a></h5>
+          <nav class="my-2 my-md-0 mr-md-3">
+
+            <a class="p-2 text-dark" href="{% url 'users:welcome'%}">Home</a>
+            <!--<a class="p-2 text-dark" href="#">Enterprise</a>-->
+            <!--<a class="p-2 text-dark" href="#">Support</a>-->
+            <!--<a class="p-2 text-dark" href="#">Pricing</a>-->
+          </nav>
+          <a class="btn btn-outline-primary" href="{% url 'users:sign_up'%}">Sign up</a>
+        </div>
+    </header>
+    <div class="mx-auto w-25 bg-dark text-white rounded">
+        <form class="m-3 form-signin" method="post" action="{% url 'users:log_in'%}">
+            {% csrf_token %}
+            <img class="mb-4 m-2" src= "{% static 'users/images/logo.jpg' %}" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
+
+            <label for="userName" class="sr-only">Username</label>
+            <input type="text" id="userName" class="form-control" placeholder="Username" name="username" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; Python Bootcamp Final Assignment</p>
+            <p class="mt-5 mb-3 text-muted">&copy; Code written by Cristhian Murcia</p>
+        </form>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    </div>
+    <footer class="text-muted">
+      <div class="container">
+<!--        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>-->
+        <p>Neat Dashboards &copy; was created by Cristhian Murcia</p>
+        <p>This application corresponds to the final project proposed by <a href="../../">Globant</a> where we applied django and python :D.</p>
+      </div>
+    </footer>
+  </body>
+</html>

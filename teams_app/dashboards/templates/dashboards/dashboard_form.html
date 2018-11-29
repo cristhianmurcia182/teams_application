@@ -1,0 +1,47 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Welcome Page Teams Application</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <header>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
+          <a href="{% url 'users:welcome'%}"><img class="navbar-brand img-responsive" src= "{% static 'users/images/logo.jpg' %}" alt="" width="50" height="40"></a>
+          <h5 class="my-0 mr-md-auto p-2 text-dark"><a href="{% url 'users:welcome'%}">{{user_starting_letter}}</a></h5>
+          <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-center" href=""><span class="border border-primary rounded-circle p-3">{{user_starting_letter}}</span></a>
+            <a class="p-2 text-dark" href="{% url 'users:welcome'%}">Home</a>
+            <!--<a class="p-2 text-dark" href="#">Enterprise</a>-->
+            <!--<a class="p-2 text-dark" href="#">Support</a>-->
+            <!--<a class="p-2 text-dark" href="#">Pricing</a>-->
+          </nav>
+          <a class="btn btn-outline-primary ml-2" href="{% url 'users:sign_up'%}">Add Dashboard</a>
+          <a class="btn btn-outline-primary ml-2" href="{% url 'users:sign_up'%}">Delete Dashboard</a>
+        </div>
+    </header>
+    <div class="mx-auto w-25 bg-dark text-white rounded">
+        <!--<form class="m-3 form-signin" method="post" action="{% url 'dashboards:dashboards'%}">-->
+        <form class="m-3 form-signin" method="post">
+            {% csrf_token %}
+            <img class="mb-4 m-2" src= "{% static 'users/images/logo.jpg' %}" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Insert the name of your board</h1>
+
+            <label for="board_name" class="sr-only">Board name</label>
+            <input type="text" id="board_name" class="form-control" placeholder="Board name" name="board_name" required autofocus>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Create board</button>
+            <p class="mt-5 mb-3 text-muted">&copy; Python Bootcamp Final Assignment</p>
+            <p class="mt-5 mb-3 text-muted">&copy; Code written by Cristhian Murcia</p>
+        </form>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    </div>
+  </body>
+</html>
